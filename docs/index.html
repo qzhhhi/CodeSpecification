@@ -10,7 +10,22 @@
   <div id="app"></div>
   <script>
     window.$docsify = {
-      //...
+      name: '代码规范',
+      repo: 'https://github.com/qzhhhi/CodeSpecification',
+      loadSidebar: true,
+      markdown: {
+        renderer: {
+          heading(text, level) {
+            let match = text.match(/^(.+)\{\#(\S+?)\}$/);
+            if (match) {
+              var loc = location.href, n = loc.indexOf("#");
+              if (-1 !== n)
+                return '<h' + level + ' id="' + match[2] + '"><a href="#' + loc.slice(n + 1) + '?id=' + match[2] + '" data-id="' + match[2] + '" class="anchor"><span>' + match[1].trim() + '</span></a></h' + level + '>';
+            }
+            return this.origin.heading.apply(this, arguments);
+          }
+        }
+      }
     }
   </script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
